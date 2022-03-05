@@ -1,17 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMove : MonoBehaviour
 {
     public float speedforward = 5.0f;
     public float speedbackward = 3f;
-    public float speedrun = 12f;
+    public float speedrun = 8f;
     public float rotateSpeed = 200f;
     public float jump = 3.0f;
     private float gravityValue = -9.81f;
     private Vector3 velocity;
-    // Start is called before the first frame update
+
+    public bool isInteracted = false;
+
+    public string LevelName = "Village";
+
+
+
+    public HUD Hud;
     void Start()
     {
 
@@ -41,11 +49,26 @@ public class PlayerMove : MonoBehaviour
         }
         velocity.y+= gravityValue * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);  
+
+        if ( isInteracted == true)
+        {
+            Debug.Log("psndqspdnqsdôqds");
+            if (Input.GetButton("Interact"))
+            {
+                SceneManager.LoadScene(LevelName);
+            }
+          
+        }
+
+
     }
+
+
+
 
     private float curSpeed;
     public void MouvementForward(){
-        if(Input.GetAxis("Vertical") !=0 && Input.GetButton("Run")){
+        if(Input.GetAxis("Vertical") > 0 && Input.GetButton("Run")){
             curSpeed = speedrun * Input.GetAxis("Vertical");
         }
         else if(Input.GetAxis("Vertical") > 0){
@@ -56,14 +79,33 @@ public class PlayerMove : MonoBehaviour
         else{
             curSpeed = 0;
         }
-        Debug.Log(curSpeed);
     }
 
-    private float smoothTime = 0.3f;
+    private float smoothTime = 0.5f;
     private float yVelocity = 0.0f;
     private float currentYRotation;
     public void Rotation(){
-        currentYRotation = Mathf.SmoothDamp(currentYRotation, Input.GetAxis("Horizontal") * rotateSpeed *Time.deltaTime, ref yVelocity, smoothTime);
-        //currentYRotation = Input.GetAxis("Horizontal") * rotateSpeed *Time.deltaTime;
+        //currentYRotation = Mathf.SmoothDamp(currentYRotation, Input.GetAxis("Horizontal") * rotateSpeed *Time.deltaTime, ref yVelocity, smoothTime);
+        currentYRotation = Input.GetAxis("Horizontal") * rotateSpeed *Time.deltaTime;
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag=="rune")
+        {
+            Hud.OpenMessagePanel("");
+            isInteracted = true;
+        }
+             
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "rune")
+        {
+            Hud.CloseMessagePanel();
+        }
+        
+    }
+
 }
