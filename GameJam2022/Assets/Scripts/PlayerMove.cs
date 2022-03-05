@@ -14,8 +14,16 @@ public class PlayerMove : MonoBehaviour
     private Vector3 velocity;
 
     public bool isInteracted = false;
+    public bool isInteractedPnj = false;
+    public bool isInteractedPnj2 = false;
+    public bool isInteractedRune2 = false;
+    public bool isInteractedFriend = false;
+    public bool isInteractedFriend2 = false;
+
+
 
     public string LevelName = "Village";
+    public string LevelNameV = "Victory";
 
     private bool groundedPlayer;
     public HUD Hud;
@@ -56,12 +64,58 @@ public class PlayerMove : MonoBehaviour
 
         if ( isInteracted == true)
         {
-            Debug.Log("psndqspdnqsdôqds");
+           
             if (Input.GetButton("Interact"))
             {
                 SceneManager.LoadScene(LevelName);
             }
           
+        }
+
+        if (isInteractedPnj == true)
+        {
+
+            if (Input.GetButton("Interact"))
+            {
+                Debug.Log("BLABLABLA VA CHERCHER MON CHAT FDP");
+            }
+
+        }
+        if (isInteractedPnj2 == true)
+        {
+
+            if (Input.GetButton("Interact"))
+            {
+                Debug.Log("baton magique lopsa");
+            }
+
+        }
+        if (isInteractedRune2 == true)
+        {
+
+            if (Input.GetButton("Interact"))
+            {
+                SceneManager.LoadScene(LevelNameV); 
+            }
+
+        }
+        if (isInteractedFriend == true)
+        {
+
+            if (Input.GetButton("Interact"))
+            {
+                Debug.Log("Salut mon amis bla bla bla les regles");
+            }
+
+        }
+        if (isInteractedFriend2 == true)
+        {
+
+            if (Input.GetButton("Interact"))
+            {
+                Debug.Log("Re mon pote ");
+            }
+
         }
 
 
@@ -96,17 +150,81 @@ public class PlayerMove : MonoBehaviour
         {
             Hud.OpenMessagePanel("");
             isInteracted = true;
+        } else if (other.tag=="Pnj")
+        {
+            Hud.OpenMessagePanel("");
+            isInteractedPnj = true;
+
         }
-             
+        else if (other.tag == "Pnj2")
+        {
+            Hud.OpenMessagePanel("");
+            isInteractedPnj2 = true;
+
+        }
+        else if (other.tag == "rune2")
+        {
+            if (GameObject.Find("cat") == null && GameObject.Find("wand") == null)
+            {
+                Hud.OpenMessagePanel("");
+                isInteractedRune2 = true;
+            }
+
+        }
+        else if (other.tag == "friend")
+        {
+ 
+                Hud.OpenMessagePanel("");
+                isInteractedFriend = true;
+
+        }
+        else if (other.tag == "friend2")
+        {
+
+            Hud.OpenMessagePanel("");
+            isInteractedFriend2 = true;
+
+        }
+
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.tag == "rune")
         {
+            isInteracted = false;
             Hud.CloseMessagePanel();
         }
-        
+        if (other.tag == "Pnj")
+        {
+            isInteractedPnj = false;
+            Hud.CloseMessagePanel();
+        }
+        if (other.tag == "Pnj2")
+        {
+            isInteractedPnj2 = false;
+            Hud.CloseMessagePanel();
+        }
+        if (other.tag == "rune2")
+        {
+
+                isInteractedRune2 = false;
+                Hud.CloseMessagePanel();
+        }
+        if (other.tag == "friend")
+        {
+
+            isInteractedFriend = false;
+            Hud.CloseMessagePanel();
+        }
+        if (other.tag == "friend2")
+        {
+
+            isInteractedFriend2 = false;
+            Hud.CloseMessagePanel();
+        }
+
+
     }
 
 }
