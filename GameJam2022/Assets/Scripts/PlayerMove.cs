@@ -17,19 +17,18 @@ public class PlayerMove : MonoBehaviour
 
     public string LevelName = "Village";
 
-
-
+    private bool groundedPlayer;
     public HUD Hud;
-    void Start()
-    {
 
-    }
 
     // Update is called once per frame
     void Update()
     {
         CharacterController controller = GetComponent<CharacterController>();
-        if (controller.isGrounded && velocity.y < 0){
+        groundedPlayer = controller.isGrounded;
+        
+
+        if (groundedPlayer && velocity.y < 0){
             velocity.y = 0f;
         }
 
@@ -41,8 +40,13 @@ public class PlayerMove : MonoBehaviour
         //float curSpeed = speed * Input.GetAxis("Vertical");
         MouvementForward();
         controller.SimpleMove(forward * curSpeed);
+        if( forward != Vector3.zero)
+        {
+            transform.forward = forward;
+        }
 
-        if (Input.GetButton("Jump") && controller.isGrounded)
+
+        if (Input.GetButton("Jump") && groundedPlayer)
         {
             //Apply a force to this Rigidbody in direction of this GameObjects up axis
            velocity.y += Mathf.Sqrt(jump * -3.0f * gravityValue);
