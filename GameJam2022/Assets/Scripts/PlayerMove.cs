@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
+    public Rigidbody rigidbodyPerso;
     public float speedforward = 5.0f;
     public float speedbackward = 3f;
     public float speedrun = 8f;
@@ -11,33 +12,34 @@ public class PlayerMove : MonoBehaviour
     public float jump = 3.0f;
     private float gravityValue = -9.81f;
     private Vector3 velocity;
+    private bool groundedPlayer;
     // Start is called before the first frame update
     void Start()
     {
-
+        rigidbodyPerso = GetComponent<Rigidbody>();
     }
-
     // Update is called once per frame
     void Update()
     {
         CharacterController controller = GetComponent<CharacterController>();
-        if (controller.isGrounded && velocity.y < 0){
+        groundedPlayer = controller.isGrounded;
+        if (groundedPlayer && velocity.y < 0){
             velocity.y = 0f;
         }
-
-        /*transform.Rotate(0, Input.GetAxis("Horizontal") * rotateSpeed, 0);*/
         Rotation();
         transform.Rotate(0,currentYRotation,0);
         // Move forward / backward
         Vector3 forward = transform.TransformDirection(Vector3.forward);
-        //float curSpeed = speed * Input.GetAxis("Vertical");
         MouvementForward();
         controller.SimpleMove(forward * curSpeed);
-
-        if (Input.GetButton("Jump") && controller.isGrounded)
+        if (forward != Vector3.zero){
+            transform.forward = forward;
+        }
+        if (Input.GetButton("Jump") && groundedPlayer)
         {
             //Apply a force to this Rigidbody in direction of this GameObjects up axis
            velocity.y += Mathf.Sqrt(jump * -3.0f * gravityValue);
+           
         }
         velocity.y+= gravityValue * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);  
@@ -56,7 +58,6 @@ public class PlayerMove : MonoBehaviour
         else{
             curSpeed = 0;
         }
-        Debug.Log(curSpeed);
     }
 
     private float smoothTime = 0.5f;
