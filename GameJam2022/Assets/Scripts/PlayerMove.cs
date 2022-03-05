@@ -63,9 +63,6 @@ public class PlayerMove : MonoBehaviour
 
     }
 
-
-
-
     private float curSpeed;
     public void MouvementForward(){
         if(Input.GetAxis("Vertical") > 0 && Input.GetButton("Run")){
