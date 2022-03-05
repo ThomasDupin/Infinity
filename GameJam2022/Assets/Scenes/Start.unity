@@ -32322,7 +32322,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speedforward: 5
   speedbackward: 3
-  speedrun: 12
+  speedrun: 8
   rotateSpeed: 200
   jump: 3
 --- !u!114 &714427921
