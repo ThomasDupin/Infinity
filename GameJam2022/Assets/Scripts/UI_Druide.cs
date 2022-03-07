@@ -11,8 +11,7 @@ public class UI_Druide : MonoBehaviour
     private TextWriterDruide.TextWriterSingle textWriterSingle;
     private AudioSource talkingAudioSource;
     int i = 1;
-    public HUD Hud;
-  
+
 
     public void Dialogue()
     {
@@ -60,7 +59,6 @@ public class UI_Druide : MonoBehaviour
             }
             else
             {
-                Hud.CloseMessageDialogue();
             }
 
         };

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PlayerMove : MonoBehaviour
+public class PlayerMove: MonoBehaviour
 {
     public float speedforward = 5.0f;
     public float speedbackward = 3f;

@@ -5,8 +5,7 @@ using UnityEngine;
 public class Cat : MonoBehaviour
 {
     public GameObject cat;
-
-  
+    
     void OnTriggerEnter()
     {
         Destroy(gameObject);
