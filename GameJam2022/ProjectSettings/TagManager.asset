@@ -11,6 +11,8 @@ TagManager:
   - rune2
   - friend
   - friend2
+  - UI_Voyageur1
+  - D1
   layers:
   - Default
   - TransparentFX

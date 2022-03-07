@@ -13,6 +13,7 @@ public class PlayerMove : MonoBehaviour
     private float gravityValue = -9.81f;
     private Vector3 velocity;
 
+
     public bool isInteracted = false;
     public bool isInteractedPnj = false;
     public bool isInteractedPnj2 = false;
@@ -78,6 +79,7 @@ public class PlayerMove : MonoBehaviour
             if (Input.GetButton("Interact"))
             {
                 Debug.Log("BLABLABLA VA CHERCHER MON CHAT FDP");
+                Hud.OpenMessageDialoguePnj("");
             }
 
         }
@@ -87,6 +89,7 @@ public class PlayerMove : MonoBehaviour
             if (Input.GetButton("Interact"))
             {
                 Debug.Log("baton magique lopsa");
+                Hud.OpenMessageDialoguePnj2("");
             }
 
         }
@@ -95,6 +98,7 @@ public class PlayerMove : MonoBehaviour
 
             if (Input.GetButton("Interact"))
             {
+
                 SceneManager.LoadScene(LevelNameV); 
             }
 
@@ -105,6 +109,8 @@ public class PlayerMove : MonoBehaviour
             if (Input.GetButton("Interact"))
             {
                 Debug.Log("Salut mon amis bla bla bla les regles");
+                
+                Hud.OpenMessageDialogue("");
             }
 
         }
@@ -114,6 +120,7 @@ public class PlayerMove : MonoBehaviour
             if (Input.GetButton("Interact"))
             {
                 Debug.Log("Re mon pote ");
+                Hud.OpenMessageDialogue2("");
             }
 
         }
@@ -173,16 +180,15 @@ public class PlayerMove : MonoBehaviour
         }
         else if (other.tag == "friend")
         {
- 
                 Hud.OpenMessagePanel("");
                 isInteractedFriend = true;
 
         }
         else if (other.tag == "friend2")
         {
-
             Hud.OpenMessagePanel("");
             isInteractedFriend2 = true;
+
 
         }
 
